@@ -89,7 +89,7 @@ This is the most important architectural fact in the project:
 
 `app_frame()` in `sauce/game.odin` is the game-facing orchestration point.
 
-Right now it does four major things:
+Right now it does five major things:
 
 1. draws screen-space UI text,
 2. keeps ambient audio alive with `sound_play_continuously(...)`,
@@ -269,7 +269,7 @@ Then it:
 
 - decodes each PNG,
 - packs them into a single atlas,
-- stores UVs in `sprites[sprite].atlas_uvs`.
+- stores each sprite's atlas texture coordinates in `sprites[sprite].atlas_uvs`.
 
 So the renderer's contract is explicit:
 
@@ -295,7 +295,7 @@ Common spaces:
 
 - `get_world_space()` — gameplay world, camera-following.
 - `get_screen_space()` — UI/screen overlay.
-- `{proj=Matrix4(1), camera=Matrix4(1)}` — raw clip space, used for full-screen passes/backgrounds.
+- `Coord_Space{proj=Matrix4(1), camera=Matrix4(1)}` — raw clip space, used for full-screen passes/backgrounds.
 
 This split is key when adding features: most bugs around rendering placement come from using the wrong space, not the wrong draw call.
 
